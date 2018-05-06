@@ -105,3 +105,50 @@ function orderAlphabetically() {
 
 
 // Best yearly rate average
+function bestYear() {
+    var moviesByYear = movies.sort(function(movie1, movie2){
+      return movie1.year - movie2.year;
+    })
+  
+    return highestAvgYear(moviesByYear);
+  
+  }
+  
+  console.log(bestYear());
+  
+  
+  function highestAvgYear(moviesByYear) {
+  
+    var firstYear = moviesByYear[0].year;
+    var lastYear = moviesByYear[moviesByYear.length - 1].year;
+    var moviesInYear = {};
+    var highestAvg = 0;
+    var ratesAvg = 0;
+    var highestAvgYear;
+  
+  
+    
+    for (var i = firstYear; i <= lastYear; i++) {
+      
+      moviesInYear = moviesByYear.filter(function(movie){
+        return movie.year == i;
+      });
+  
+      if (moviesInYear.length > 0){
+        ratesAvg = ratesAvgByYear(moviesInYear);
+  
+        //TODO solution for same high average for several years
+  
+        if (ratesAvg > highestAvg) {
+          highestAvg = ratesAvg;
+          highestAvgYear = i;
+        } 
+      }
+      
+  
+    }
+  
+    return highestAvgYear;
+  
+  }
+  
